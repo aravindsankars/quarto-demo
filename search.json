@@ -1,0 +1,51 @@
+[
+  {
+    "objectID": "hello-penguins.html",
+    "href": "hello-penguins.html",
+    "title": "Hello, Penguins!",
+    "section": "",
+    "text": "Meet the Palmer Penguins!!\n\n\nFor this analysis we’ll use a few packages for visualization and data display.\n\nimport pandas as pd\nimport seaborn as sns \nfrom IPython.display import Markdown\n\nsns.set_style('whitegrid')\n\n\n\n\nThe dataset we’ll use comes from the palmerpenguins package.\n\nfrom palmerpenguins import load_penguins\n\npenguins = load_penguins()\n\nThis dataset contains size measurements, clutch observations, and blood isotope ratios for 344 adult foraging Adélie, Chinstrap, and Gentoo penguins observed on islands in the Palmer Archipelago near Palmer Station, Antarctica.\nLet’s take a peek at the data. The table below shows the first five rows of the penguins data frame.\n\nMarkdown(penguins.head().to_markdown(index=False))\n\n\n\nTable 1: First five rows of the penguins data frame.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\n\nAdelie\nTorgersen\n39.1\n18.7\n181\n3750\nmale\n2007\n\n\nAdelie\nTorgersen\n39.5\n17.4\n186\n3800\nfemale\n2007\n\n\nAdelie\nTorgersen\n40.3\n18\n195\n3250\nfemale\n2007\n\n\nAdelie\nTorgersen\nnan\nnan\nnan\nnan\nnan\n2007\n\n\nAdelie\nTorgersen\n36.7\n19.3\n193\n3450\nfemale\n2007"
+  },
+  {
+    "objectID": "hello-penguins.html#packages",
+    "href": "hello-penguins.html#packages",
+    "title": "Hello, Penguins!",
+    "section": "",
+    "text": "For this analysis we’ll use a few packages for visualization and data display.\n\nimport pandas as pd\nimport seaborn as sns \nfrom IPython.display import Markdown\n\nsns.set_style('whitegrid')"
+  },
+  {
+    "objectID": "hello-penguins.html#data",
+    "href": "hello-penguins.html#data",
+    "title": "Hello, Penguins!",
+    "section": "",
+    "text": "The dataset we’ll use comes from the palmerpenguins package.\n\nfrom palmerpenguins import load_penguins\n\npenguins = load_penguins()\n\nThis dataset contains size measurements, clutch observations, and blood isotope ratios for 344 adult foraging Adélie, Chinstrap, and Gentoo penguins observed on islands in the Palmer Archipelago near Palmer Station, Antarctica.\nLet’s take a peek at the data. The table below shows the first five rows of the penguins data frame.\n\nMarkdown(penguins.head().to_markdown(index=False))\n\n\n\nTable 1: First five rows of the penguins data frame.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\n\nAdelie\nTorgersen\n39.1\n18.7\n181\n3750\nmale\n2007\n\n\nAdelie\nTorgersen\n39.5\n17.4\n186\n3800\nfemale\n2007\n\n\nAdelie\nTorgersen\n40.3\n18\n195\n3250\nfemale\n2007\n\n\nAdelie\nTorgersen\nnan\nnan\nnan\nnan\nnan\n2007\n\n\nAdelie\nTorgersen\n36.7\n19.3\n193\n3450\nfemale\n2007"
+  },
+  {
+    "objectID": "hello-penguins.html#body-mass-vs.-flipper-length",
+    "href": "hello-penguins.html#body-mass-vs.-flipper-length",
+    "title": "Hello, Penguins!",
+    "section": "Body mass vs. flipper length",
+    "text": "Body mass vs. flipper length\nThe figure below the relationship between body mass and flipper length of penguins.\n\n# from https://github.com/mcnakhaee/palmerpenguins\ng = sns.lmplot(x=\"flipper_length_mm\",\n               y=\"body_mass_g\",\n               hue=\"species\",\n               height=7,\n               data=penguins,\n               palette=['#FF8C00','#159090','#A034F0'])\ng.set_xlabels('Flipper Length')\ng.set_ylabels('Body Mass')\n\n\n\n\n\n\n\nFigure 1: Body mass vs. flipper length of penguins"
+  },
+  {
+    "objectID": "posts/TMDb_Netflix_Connect_Notebook.html",
+    "href": "posts/TMDb_Netflix_Connect_Notebook.html",
+    "title": "Data Preparation for TMDB and Netflix Titles",
+    "section": "",
+    "text": "This notebook processes datasets from Netflix and TMDB to identify matching titles, explore statistics, and generate cleaned outputs. Each step is documented to ensure clarity and reproducibility."
+  },
+  {
+    "objectID": "posts/TMDb_Netflix_Connect_Notebook.html#pre-covid-netflix-titles-with-tmdb",
+    "href": "posts/TMDb_Netflix_Connect_Notebook.html#pre-covid-netflix-titles-with-tmdb",
+    "title": "Data Preparation for TMDB and Netflix Titles",
+    "section": "Pre Covid Netflix titles with TMDB",
+    "text": "Pre Covid Netflix titles with TMDB\n\n1. Loading and Inspecting Datasets\n\nimport pandas as pd\n\n# Load datasets\npre_netflix_df = pd.read_csv('netflix_titles_1.csv')\ntmdb_df = pd.read_csv('TMDB_movie_dataset_v11.csv')\npost_netflix_df = pd.read_csv('titles.csv')\n\n# Display dataset statistics\nprint('Netflix dataset shape:', pre_netflix_df.shape)\nprint('TMDB dataset shape:', tmdb_df.shape)\nprint('Netflix dataset shape:', post_netflix_df.shape)\n\n# Display a few rows from each dataset\npre_netflix_df.head(), tmdb_df.head(), post_netflix_df.head()\n\n\n\n2. Data Cleaning and Transformation\n\n# Standardize title case to lowercase for comparison\npre_netflix_df['title_lower'] = pre_netflix_df['title'].str.lower()\ntmdb_df['title_lower'] = tmdb_df['title'].str.lower()\npost_netflix_df['title_lower'] = post_netflix_df['title'].str.lower()\n\n# Drop duplicates in datasets\npre_netflix_df = pre_netflix_df.drop_duplicates(subset=['title_lower'])\ntmdb_df = tmdb_df.drop_duplicates(subset=['title_lower'])\npost_netflix_df = post_netflix_df.drop_duplicates(subset=['title_lower'])\nprint('Duplicates removed from datasets.')\n\n\n\n3. Merging Datasets\n\n# Merge datasets on standardized title\npre_merged_df = pd.merge(pre_netflix_df, tmdb_df, on='title_lower', how='inner')\n\n# Filter post-COVID titles (release year &gt;= 2020)\npost_merged_df = post_netflix_df[post_netflix_df['release_year'] &gt;= 2020]\npost_merged_df = pd.merge(post_netflix_df, tmdb_df, on='title_lower', how='inner')\n\n# Save pre merged dataset\npre_merged_df.to_csv('filtered_titles.csv', index=False)\n# Save post-COVID merged dataset\npost_merged_df.to_csv('post_matching_titles.csv', index=False)\n\nprint(f'Pre-COVID Merged dataset shape: {merged_df.shape}')\nprint(f'Post-COVID merged dataset shape: {merged_post_covid.shape}')\n\n\n\n5. Statistics and Identifying Common Titles\n\n# Load pre- and post-COVID datasets\nfiltered_df = pd.read_csv('filtered_titles.csv')\npost_matching_df = pd.read_csv('post_matching_titles.csv')\n\n# Find common titles between datasets\ncommon_titles = pd.merge(filtered_df, post_matching_df, on='title_lower', how='inner')\n\n# Save common and remaining titles\ncommon_titles.to_csv('common_titles.csv', index=False)\nfiltered_remaining = filtered_df[~filtered_df['title_lower'].isin(common_titles['title_lower'])]\npost_matching_remaining = post_matching_df[~post_matching_df['title_lower'].isin(common_titles['title_lower'])]\n\nfiltered_remaining.to_csv('filtered_remaining.csv', index=False)\npost_matching_remaining.to_csv('post_matching_remaining.csv', index=False)\n\nprint(f'Number of common titles: {common_titles.shape[0]}')\n\nIn this notebook, we successfully prepared and processed two datasets—Netflix and TMDB—to identify common movie titles and explore post-COVID trends. The key steps involved were:\nData Loading and Inspection: Reviewed and summarized the datasets, providing an overview of their structure and content. Data Cleaning and Transformation: Standardized titles, removed duplicates, and ensured consistency for reliable comparisons. Merging and Filtering: Merged datasets based on movie titles and applied filters to focus on specific timeframes, such as post-COVID releases. Analysis and Output: Generated key statistics, identified overlaps between datasets, and exported the cleaned and filtered datasets for further analysis. This process not only streamlined the data for easier use but also highlighted important patterns, such as trends in movie releases and shared titles between platforms."
+  },
+  {
+    "objectID": "blogs.html",
+    "href": "blogs.html",
+    "title": "Blog",
+    "section": "",
+    "text": "Data Preparation for TMDB and Netflix Titles\n\n\n \n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
+  }
+]
